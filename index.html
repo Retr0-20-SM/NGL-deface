@@ -1,12 +1,319 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Hacked by Retr0_2.0</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: #00FF00;
+      font-family: monospace;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+    }
+
+    #intro {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 6em;
+      animation: flash 0.2s infinite alternate;
+      z-index: 9999;
+      text-align: center;
+    }
+
+    @keyframes flash {
+      0% { background-color: black; color: red; }
+      100% { background-color: darkred; color: white; }
+    }
+
+    #terminal {
+      padding: 20px;
+      white-space: pre-wrap;
+      display: none;
+      font-size: 2em;
+      z-index: 1;
+    }
+
+    .spoof {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: rgba(255,0,0,0.1);
+      color: red;
+      padding: 10px;
+      font-size: 1.2em;
+      border: 1px solid red;
+      z-index: 100;
+    }
+
+    #mask {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      opacity: 0.3;
+      animation: floatMask 4s infinite ease-in-out;
+      z-index: 10;
+    }
+
+    @keyframes floatMask {
+      0%, 100% { transform: translate(-50%, -10px); opacity: 0.2; }
+      50% { transform: translate(-50%, 10px); opacity: 0.5; }
+    }
+
+    #webcam {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 300px;
+      border: 2px solid red;
+      display: none;
+      z-index: 100;
+    }
+
+    #adminPanel {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 600px;
+      padding: 30px;
+      background: #111;
+      color: #0f0;
+      border: 2px solid #0f0;
+      display: none;
+      z-index: 2000;
+      font-size: 1.2em;
+    }
+
+    #adminPanel input, #adminPanel button {
+      font-size: 1.2em;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    #adminPanel input {
+      background: black;
+      color: lime;
+      border: 1px solid green;
+    }
+
+    #adminPanel button {
+      background: darkred;
+      color: white;
+      cursor: pointer;
+    }
+
+    #typingFlood {
+      position: fixed;
+      top: 0;
+      left: 0;
+      color: red;
+      font-size: 40px;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5000;
+    }
+
+    #keyLog {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      color: #0f0;
+      font-size: 20px;
+      background: rgba(0,0,0,0.5);
+      padding: 8px;
+      z-index: 999;
+    }
+
+    #bsod {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: #0000AA;
+      color: white;
+      font-family: monospace;
+      font-size: 1.5em;
+      display: none;
+      padding: 20px;
+      box-sizing: border-box;
+      z-index: 10000;
+    }
+
+    iframe {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      opacity: 0.03;
+      z-index: 99999;
+    }
+  </style>
 </head>
 <body>
-  <h1 style="color:red; text-align:center;">HACKED BY RETR0_2.0</h1>
-  <p style="text-align:center;">Your system has been compromised.</p>
+
+  <div id="intro">HACKED BY RETR0_2.0</div>
+  <div class="spoof">🔒 Accessing camera...<br>📍 Spoofing GPS location...</div>
+  <div id="terminal"></div>
+  <img id="mask" src="https://i.imgur.com/3VYlYlz.png">
+  <img id="webcam" src="https://i.imgur.com/O3DHIA5.gif">
+  <div id="adminPanel">
+    <h3>Admin Panel Accessed</h3>
+    <input type="text" value="admin">
+    <input type="password" value="root1234">
+    <button onclick="alert('Backdoor Injected!')">Inject Payload</button>
+  </div>
+  <div id="typingFlood"></div>
+  <div id="keyLog">Keys: </div>
+
+  <div id="bsod">
+    <p>A problem has been detected and Windows has been shut down to prevent damage to your computer.</p>
+    <p>CRITICAL_PROCESS_DIED</p>
+    <p>If this is the first time you've seen this stop error screen, restart your computer. If this screen appears again, follow these steps:</p>
+    <p>Check to make sure any new hardware or software is properly installed...</p>
+  </div>
+
+  <iframe src="." sandbox=""></iframe>
+
+  <audio id="bg-audio" autoplay loop>
+    <source src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const terminal = document.getElementById("terminal");
+    const intro = document.getElementById("intro");
+    const webcam = document.getElementById("webcam");
+    const adminPanel = document.getElementById("adminPanel");
+    const typingFlood = document.getElementById("typingFlood");
+    const keyLog = document.getElementById("keyLog");
+    const bsod = document.getElementById("bsod");
+
+    const commands = [
+      "root@victim:~# whoami",
+      "root",
+      "root@victim:~# ip a",
+      "eth0: 192.168.0.1",
+      "root@victim:~# rm -rf /",
+      "Deleting system32...",
+      "Injecting payload...",
+      "Accessing webcam...",
+      "Retrieving GPS coordinates...",
+      "Location spoofed: 0.0000, 0.0000",
+      "root@victim:~# echo 'Fucked by Retr0' > index.html",
+    ];
+
+    function typeCommand(i = 0) {
+      if (i >= commands.length) {
+        setTimeout(() => {
+          webcam.style.display = "block";
+          adminPanel.style.display = "block";
+          startFloodTyping();
+        }, 2000);
+        return;
+      }
+
+      let line = commands[i];
+      let j = 0;
+      let interval = setInterval(() => {
+        terminal.innerHTML += line[j++];
+        if (j >= line.length) {
+          terminal.innerHTML += '\n';
+          clearInterval(interval);
+          setTimeout(() => typeCommand(i + 1), 400);
+        }
+      }, 50);
+    }
+
+    // Start terminal after intro
+    setTimeout(() => {
+      intro.style.display = "none";
+      terminal.style.display = "block";
+      typeCommand();
+      alert("Fucked by Retr0");
+    }, 4000);
+
+    // Screen shake
+    setInterval(() => {
+      document.body.style.transform = `translate(${Math.random()*10-5}px, ${Math.random()*10-5}px)`;
+    }, 50);
+
+    // Popup bombs
+    const messages = [
+      "You got pwned.",
+      "System breached.",
+      "Fucked by Retr0.",
+      "Payload executed.",
+      "Root access granted.",
+      "Admin credentials dumped."
+    ];
+    setInterval(() => {
+      alert(messages[Math.floor(Math.random() * messages.length)]);
+    }, 8000);
+
+    // Clipboard overwrite
+    document.addEventListener("copy", (e) => {
+      e.clipboardData.setData("text/plain", "You were hacked by Retr0.");
+      e.preventDefault();
+    });
+
+    // Keylog effect
+    document.addEventListener("keydown", (e) => {
+      keyLog.innerText += e.key + ' ';
+    });
+
+    // Typing flood
+    function startFloodTyping() {
+      let phrases = [
+        "System breach detected...",
+        "Injecting shell...",
+        "Overriding permissions...",
+        "admin@root:~$ ./pwn.sh"
+      ];
+      setInterval(() => {
+        let span = document.createElement("div");
+        span.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+        span.style.position = "absolute";
+        span.style.left = Math.random() * window.innerWidth + "px";
+        span.style.top = Math.random() * window.innerHeight + "px";
+        typingFlood.appendChild(span);
+        if (typingFlood.children.length > 100) typingFlood.removeChild(typingFlood.children[0]);
+      }, 100);
+    }
+
+    // Fake reboot / BSOD
+    setTimeout(() => {
+      bsod.style.display = 'block';
+    }, 30000); // trigger after 30 seconds
+
+    // Fullscreen hijack (auto-request)
+    function requestFullScreen() {
+      const el = document.documentElement;
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+      else if (el.msRequestFullscreen) el.msRequestFullscreen();
+    }
+
+    document.addEventListener("click", requestFullScreen);
+  </script>
 </body>
 </html>
